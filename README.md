@@ -1,0 +1,1 @@
+Tibyan Platform is a specialized digital environment for memorizing the Holy Quran. It offers users interactive sessions and structured plans to master recitation and retention through modern educational tools.
