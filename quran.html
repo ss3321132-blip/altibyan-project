@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المصحف الشامل - منصة التبيان</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- 🔥 Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <style>
+        .bookshelf-section { padding: 20px 0; background: rgba(30, 41, 59, 0.5); margin: 20px 0; border-radius: 16px; }
+        .bookshelf-scroll { display: flex; gap: 20px; overflow-x: auto; padding: 20px; scrollbar-width: thin; scrollbar-color: #3b82f6 #1e293b; }
+        .book-cover { flex: 0 0 120px; height: 180px; background: linear-gradient(135deg, #8B4513, #A0522D); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 10px; border: 2px solid #A0522D; }
+        .book-cover:hover { transform: translateY(-10px) scale(1.05); box-shadow: 0 10px 25px rgba(0,0,0,0.4); }
+        .book-cover h3 { font-size: 18px; margin: 0; font-family: 'Traditional Arabic', serif; }
+        .book-cover span { font-size: 14px; opacity: 0.8; }
+        .quran-player-section { animation: fadeIn 0.5s ease; }
+        .player-wrapper { background: #fdfbf7; border: 1px solid #d1c4a9; border-radius: 8px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-width: 800px; margin: 0 auto; }
+        .player-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #d1c4a9; padding-bottom: 15px; margin-bottom: 20px; }
+        .player-header h2 { font-family: 'Traditional Arabic', serif; font-size: 24px; color: #5d4037; }
+        .icon-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: #5d4037; }
+        .player-content { text-align: center; margin-bottom: 20px; }
+        .ayah-text { font-size: 32px; line-height: 2.2; color: #212121; font-family: 'Amiri', serif; transition: opacity 0.3s; }
+        .translation-text { font-size: 18px; line-height: 1.6; color: #424242; font-style: italic; border-top: 1px solid #d1c4a9; padding-top: 15px; margin-top: 20px; }
+        .tafseer-text { font-size: 16px; line-height: 1.6; color: #424242; background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: justify; }
+        .player-controls { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center-top: 15px; border-top: 1px solid #d1c4a9; }
+        .control-btn, .action-btn { padding: 10px 20px; border: 1px solid #8d6e63; background: #fff; color: #5d4037; border-radius: 8px; cursor: pointer; font-size: 14px; transition: all 0.2s; }
+        .control-btn:hover, .action-btn:hover { background: #8d6e63; color: white; }
+        .control-select { padding: 8px; border-radius: 8px; border: 1px solid #8d6e63; font-family: inherit; }
+    </style>
+</head>
+<body>
+
+    <section id="bookshelf-container" class="bookshelf-section">
+      <h2 class="section-title">📚 المكتبة القرآنية</h2>
+      <div class="bookshelf-scroll"></div>
+    </section>
+
+    <section id="quran-player-container" class="quran-player-section" style="display: none;">
+      <div class="player-wrapper">
+        <div class="player-header">
+          <button id="close-player-btn" class="icon-btn">✕</button>
+          <h2 id="surah-title">سورة الفاتحة</h2>
+          <button id="prev-surah-btn" class="icon-btn">◀</button>
+          <button id="next-surah-btn" class="icon-btn">▶</button>
+        </div>
+        <div class="player-content">
+          <div id="ayah-text" class="ayah-text">بسم الله الرحمن الرحيم</div>
+          <div id="translation-text" class="translation-text" style="display: none;">In the name of Allah, the Most Gracious, the Most Merciful.</div>
+          <div id="tafseer-text" class="tafseer-text" style="display: none;"><strong>التفسير:</strong> قوله تعالى "بسم الله" أي أبدأ بذكر الله...</div>
+        </div>
+        <div class="player-controls">
+          <button id="play-pause-btn" class="control-btn play-pause-btn">▶️ تشغيل</button>
+          <select id="ayah-select" class="control-select"></select>
+          <div class="speed-control">
+            <label>السرعة:</label>
+            <select id="speed-select" class="control-select">
+              <option value="0.5">0.5x</option>
+              <option value="1" selected>1x</option>
+              <option value="1.5">1.5x</option>
+              <option value="2">2x</option>
+            </select>
+          </div>
+          <div class="action-buttons">
+            <button id="toggle-translation-btn" class="action-btn">🌐 عرض الترجمة</button>
+            <button id="toggle-tafseer-btn" class="action-btn">📖 عرض التفسير</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>
