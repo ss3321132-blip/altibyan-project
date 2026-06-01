@@ -1,1 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - منصة التبيان</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 🔥 Firebase SDK (مصحح) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
 
+    <div class="login-container">
+        <div class="login-header">
+            <h1>🕌 منصة التبيان</h1>
+            <p>نظام إدارة الحلقات والقرآن الكريم</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username" data-i18n="usernameLabel">👤 اسم المستخدم:</label>
+                <input type="text" id="username" placeholder="admin / teacher / student" required>
+            </div>
+            <div class="input-group">
+                <label for="password" data-i18n="passwordLabel">🔑 كلمة المرور:</label>
+                <input type="password" id="password" placeholder="123" required>
+            </div>
+            <button type="submit" class="login-btn" data-i18n="loginBtn">تسجيل الدخول</button>
+        </form>
+
+        <div class="roles-hint">
+            <p><strong>حسابات تجريبية:</strong></p>
+            <div class="role-item"><span>مشرف:</span> <span>admin / 123</span></div>
+            <div class="role-item"><span>معلم:</span> <span>teacher / 123</span></div>
+            <div class="role-item"><span>طالب:</span> <span>student / 123</span></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
